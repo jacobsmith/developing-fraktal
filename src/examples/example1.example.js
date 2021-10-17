@@ -1,5 +1,6 @@
-let app = global.Fraktal();
+import { Fraktal } from 'fraktal';
 
+let app = Fraktal();
 app.test = [
     [(i) => i === '123', () => 'You passed 123'],
     [(i) => i === '456', () => 'You passed 456'],

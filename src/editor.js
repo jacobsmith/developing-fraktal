@@ -9,9 +9,11 @@ import ErrorBoundary from './errorBoundary';
 
 global.Fraktal = Fraktal;
 
+const allButFirstLine = (arg) => arg.split("\n").slice(1).join("\n");
+
 const showCode = (arg) => {
   return `
-    render((function() {
+    (function() {
       let wrapper = () => {
         ${arg}
 
@@ -19,13 +21,13 @@ const showCode = (arg) => {
       }
 
       return wrapper()
-    })())
+    })()
   `
 }
 
 const Editor = ({ example }) => {
   return (
-    <LiveProvider noInline code={ example } transformCode={ showCode } scope={{ Fraktal: Fraktal, global: global }}>
+    <LiveProvider code={ allButFirstLine(example) } transformCode={ showCode } scope={{ Fraktal: Fraktal, global: global }}>
       <LiveEditor />
       <ErrorBoundary>
         <LiveError />
