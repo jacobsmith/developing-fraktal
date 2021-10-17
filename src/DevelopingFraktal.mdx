@@ -20,9 +20,13 @@ Example:
 
 As you can see above, calling `test` with different values will execute different functions. Oh, and the code above is interactive - try passing `'456'` as the argument to `app.test` and see the value update.
 
+## React example
+
 This same approach can be used within the context of React. For example, maybe you don't want to keep writing ternary statements to determine if data is loaded or not. With a pattern matching approach, you an use a more declarative style of programming, as well as test that code in isolation more easily.
 
 <Editor example={ basicReactLoading } react />
+
+### React complexities
 
 As you can see, there are some additional complexities with React, primarily around how hooks are declared and executed. For now, you can copy the pattern of:
 

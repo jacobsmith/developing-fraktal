@@ -33,6 +33,10 @@ const reactShowCode = (arg) => {
     let wrapper = () => {
       ${allButLastLine(arg)}
 
+      if (typeof ${lastLine} !== 'function') {
+        return render("You must reeturn a function")
+      }
+
       render(${lastLine})
     }
 
