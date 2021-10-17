@@ -1,5 +1,4 @@
 import { Fraktal } from 'fraktal';
-
 let app = Fraktal();
 app.test = [
     [(i) => i === '123', () => 'You passed 123'],

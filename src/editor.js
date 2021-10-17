@@ -4,12 +4,13 @@ import {
     LiveError,
     LivePreview
 } from 'react-live'
-import { Fraktal } from 'fraktal';
+import { Fraktal, Pattern } from 'fraktal';
 import ErrorBoundary from './errorBoundary';
 
 global.Fraktal = Fraktal;
 
 const allButFirstLine = (arg) => arg.split("\n").slice(1).join("\n");
+const allButLastLine = (arg) => arg.split("\n").slice(0, -1).join("\n");
 
 const showCode = (arg) => {
   return `
@@ -25,9 +26,27 @@ const showCode = (arg) => {
   `
 }
 
-const Editor = ({ example }) => {
+const reactShowCode = (arg) => {
+  const lastLine = arg.split("\n")[arg.split("\n").length - 1].replace("return", "").replace(";", "");
+  let a = `
+  (function() {
+    let wrapper = () => {
+      ${allButLastLine(arg)}
+
+      render(${lastLine})
+    }
+
+    wrapper()
+  })()
+  `
+
+  console.log(a)
+  return a;
+}
+
+const Editor = ({ example, react }) => {
   return (
-    <LiveProvider code={ allButFirstLine(example) } transformCode={ showCode } scope={{ Fraktal: Fraktal, global: global }}>
+    <LiveProvider noInline={ react } code={ allButFirstLine(example) } transformCode={ react ? reactShowCode : showCode } scope={{ Fraktal: Fraktal, Pattern }}>
       <LiveEditor />
       <ErrorBoundary>
         <LiveError />
